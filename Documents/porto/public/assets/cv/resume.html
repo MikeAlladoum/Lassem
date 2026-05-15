@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Mike Alladoum - Développeur Blockchain</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            border-bottom: 3px solid #00d9ff;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #00d9ff;
+            font-size: 2.5em;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: #b344ff;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            color: #00d9ff;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            border-left: 4px solid #b344ff;
+            padding-left: 10px;
+            font-weight: bold;
+        }
+
+        .experience-item,
+        .skill-item,
+        .education-item,
+        .project-item {
+            margin-bottom: 20px;
+        }
+
+        .experience-item h3,
+        .education-item h3,
+        .project-item h3 {
+            color: #b344ff;
+            margin-bottom: 5px;
+        }
+
+        .experience-item p,
+        .education-item p,
+        .project-item p {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        ul {
+            margin-left: 20px;
+            color: #666;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .skill-category {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #00d9ff;
+        }
+
+        .skill-category strong {
+            color: #00d9ff;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+                padding: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            .header h1 {
+                font-size: 1.8em;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>DJEKOURMAN ALLADOUM MIKE</h1>
+            <p>Développeur Blockchain | Web3 Engineer</p>
+            <div class="contact-info">
+                <span>📧 djekourman.alladoum@gmail.com</span>
+                <span>📱 +228 92361187</span>
+                <span>🌐 linkedin.com/in/mike-alladoum</span>
+                <span>💻 github.com/MikeAlladoum</span>
+                <span>📍 Lomé, Togo</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">👤 Profil Professionnel</h2>
+            <p>Développeur blockchain avec 2 ans d'expérience solide dans le développement de solutions Web3. Spécialiste en création de contrats intelligents sécurisés, protocoles DeFi innovants et applications décentralisées performantes. Passionné par les technologies décentralisées et engagé à contribuer à l'adoption massive de la blockchain.</p>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">💼 Expérience Professionnelle</h2>
+            
+            <div class="experience-item">
+                <h3>Développeur Blockchain Senior</h3>
+                <p><strong>2024 - Présent</strong></p>
+                <ul>
+                    <li>Développement de contrats intelligents Solidity pour protocoles DeFi</li>
+                    <li>Conception et implémentation de solutions Web3 sécurisées</li>
+                    <li>Audit de sécurité et optimisation des smart contracts</li>
+                    <li>Intégration de portefeuilles numériques et protocoles de liquidation</li>
+                    <li>Mentorat d'équipes de développement junior</li>
+                </ul>
+            </div>
+
+            <div class="experience-item">
+                <h3>Développeur Web3</h3>
+                <p><strong>2023 - 2024</strong></p>
+                <ul>
+                    <li>Création d'applications décentralisées (DApps)</li>
+                    <li>Intégration avec Solana, Ethereum et autres blockchains</li>
+                    <li>Développement frontend avec React, Next.js et Web3.js</li>
+                    <li>Gestion de bases de données blockchain</li>
+                    <li>Déploiement sur testnet et mainnet</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">🎓 Compétences Techniques</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <strong>Blockchain & Smart Contracts</strong>
+                    Solidity, Web3.js, Ethers.js, Solana, Hardhat, Truffle, OpenZeppelin
+                </div>
+                <div class="skill-category">
+                    <strong>Frontend Development</strong>
+                    React, Next.js, TypeScript, Tailwind CSS, Framer Motion, Responsive Design
+                </div>
+                <div class="skill-category">
+                    <strong>Backend Development</strong>
+                    Node.js, Python, PostgreSQL, Express, Firebase
+                </div>
+                <div class="skill-category">
+                    <strong>Outils & Développement</strong>
+                    Git, GitHub, VSCode, Docker, Remix IDE, MetaMask Integration
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">📚 Formation & Certifications</h2>
+            
+            <div class="education-item">
+                <h3>Certification Développeur Blockchain</h3>
+                <p>Coursera - 2024</p>
+            </div>
+
+            <div class="education-item">
+                <h3>Certification Solidity Advanced</h3>
+                <p>Udemy - 2024</p>
+            </div>
+
+            <div class="education-item">
+                <h3>Baccalauréat en Informatique</h3>
+                <p>Lycée - Togo</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">🏆 Projets Majeurs</h2>
+            
+            <div class="project-item">
+                <h3>🎯 KOYA - Solana DApp</h3>
+                <p>Application décentralisée Solana avec intégration wallet complète, interface utilisateur intuitive et gestion des tokens.</p>
+                <p><strong>Stack:</strong> Solana, React, Web3.js | <strong>Repo:</strong> github.com/MikeAlladoum/koya</p>
+            </div>
+
+            <div class="project-item">
+                <h3>🔒 Sentinel Liquidation - Protocole DeFi</h3>
+                <p>Protocole de liquidation automatisée avec gestion des risques avancée, monitoring en temps réel et callback de liquidation.</p>
+                <p><strong>Stack:</strong> Solidity, Web3.js, Python | <strong>Repo:</strong> github.com/MikeAlladoum/sentinel-liquidation</p>
+            </div>
+
+            <div class="project-item">
+                <h3>💳 WalletConnect DApp</h3>
+                <p>Application multi-chain avec intégration complète de WalletConnect, support de multiples portefeuilles.</p>
+                <p><strong>Stack:</strong> React, WalletConnect, Ethers.js | <strong>Repo:</strong> github.com/MikeAlladoum/walletconnect-dapp</p>
+            </div>
+
+            <div class="project-item">
+                <h3>🛍️ DAPP Enchères - Plateforme Décentralisée</h3>
+                <p>Plateforme d'enchères décentralisée basée sur Ethereum avec smart contracts sécurisés.</p>
+                <p><strong>Stack:</strong> Solidity, Next.js, Hardhat | <strong>Repo:</strong> github.com/MikeAlladoum/dapp-encheres</p>
+            </div>
+
+            <div class="project-item">
+                <h3>📊 Sales Analytics</h3>
+                <p>Système d'analyse de données de vente avec visualisations en temps réel et dashboards.</p>
+                <p><strong>Stack:</strong> Python, Analytics | <strong>Repo:</strong> github.com/MikeAlladoum/sales-analytics</p>
+            </div>
+
+            <div class="project-item">
+                <h3>🌡️ Temperature System - IoT</h3>
+                <p>Système de monitoring IoT avec alertes en temps réel et historique détaillé.</p>
+                <p><strong>Stack:</strong> Node.js, IoT, Real-time | <strong>Repo:</strong> github.com/MikeAlladoum/temperature-system</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">💬 Services Offerts</h2>
+            <ul>
+                <li><strong>Développement Smart Contracts:</strong> Création et audit de contrats intelligents sécurisés</li>
+                <li><strong>DApp Web3:</strong> Développement d'applications décentralisées performantes</li>
+                <li><strong>Consultation Blockchain:</strong> Conseil et stratégie d'intégration blockchain</li>
+                <li><strong>Audit de Sécurité:</strong> Vérification et optimisation de code blockchain</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">🌐 Présence En Ligne</h2>
+            <ul>
+                <li><strong>GitHub:</strong> github.com/MikeAlladoum</li>
+                <li><strong>LinkedIn:</strong> linkedin.com/in/mike-alladoum</li>
+                <li><strong>Twitter:</strong> @mikealladoum</li>
+                <li><strong>Email:</strong> djekourman.alladoum@gmail.com</li>
+                <li><strong>WhatsApp:</strong> +228 92361187</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

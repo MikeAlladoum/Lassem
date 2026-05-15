@@ -480,6 +480,101 @@
             color: var(--primary-purple);
         }
 
+        /* ============ CV MODAL ============ */
+        .cv-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .cv-modal-content {
+            background: var(--dark-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            padding: 2rem;
+            box-shadow: 0 0 50px rgba(0, 217, 255, 0.3);
+        }
+
+        .cv-modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 2001;
+        }
+
+        .cv-modal-close:hover {
+            color: var(--primary-cyan);
+        }
+
+        .cv-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .cv-modal-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--primary-cyan);
+            margin: 0;
+        }
+
+        .cv-content {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .cv-content h3 {
+            color: var(--primary-purple);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .cv-content p {
+            margin-bottom: 0.5rem;
+        }
+
+        .cv-content ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cv-content li {
+            margin-bottom: 0.3rem;
+        }
+
         /* ============ RESPONSIVE ============ */
         @media (max-width: 768px) {
             .navbar {
@@ -624,18 +719,18 @@
             <div class="container">
                 <div class="hero-content">
                     <div class="hero-text">
-                        <h1>DJEKOURMAN ALLADOUM MIKE</h1>
+                        <h1>Mike Alladoum</h1>
                         <p class="subtitle">Web3 Developer & Blockchain Engineer</p>
                         <p class="description">
-                            Spécialiste en développement blockchain avec expertise en Solidity, Solana, et protocoles DeFi. 
+                            Développeur blockchain avec 2 ans d'expérience. Spécialiste en Solidity, Solana, et protocoles DeFi. 
                             Je crée des solutions Web3 sécurisées et performantes pour l'avenir décentralisé.
                         </p>
                         <div class="cv-buttons">
-                            <a href="https://wa.me/22892361187" class="btn btn-primary">
-                                <i class="fab fa-whatsapp"></i> Me Contacter
-                            </a>
-                            <a href="https://github.com/MikeAlladoum" class="btn btn-secondary" target="_blank">
-                                <i class="fab fa-github"></i> GitHub
+                            <button id="viewCvBtn" class="btn btn-primary">
+                                <i class="fas fa-file-pdf"></i> Voir mon CV
+                            </button>
+                            <a href="#contact" class="btn btn-secondary">
+                                <i class="fas fa-envelope"></i> Contact
                             </a>
                         </div>
                     </div>
@@ -648,7 +743,7 @@
                         </div>
                         <div class="hero-name">
                             <h2>Mike Alladoum</h2>
-                            <p class="role">Blockchain Developer | Web3 Engineer</p>
+                            <p class="role">Développeur Blockchain | 2 ans d'expérience</p>
                         </div>
                     </div>
                 </div>
@@ -660,9 +755,9 @@
             <div class="container">
                 <h2 class="section-title">À Propos</h2>
                 <p style="text-align: center; color: var(--text-secondary); max-width: 700px; margin: 0 auto;">
-                    Junior blockchain developer ambitieux basé à Lomé, Togo. Passionné par les technologies décentralisées 
+                    Développeur blockchain avec 2 ans d'expérience basé à Lomé, Togo. Passionné par les technologies décentralisées 
                     et la construction d'applications Web3 sécurisées. Je m'engage à repousser les limites de ce qui est possible 
-                    dans l'écosystème blockchain.
+                    dans l'écosystème blockchain et à contribuer à l'adoption massive de la technologie.
                 </p>
             </div>
         </section>
@@ -838,19 +933,19 @@
                 <div style="max-width: 700px; margin: 0 auto;">
                     <div class="project-card" style="margin-bottom: 1rem;">
                         <h3>Q: Quels sont vos domaines de spécialisation?</h3>
-                        <p>Je spécialise dans le développement blockchain, les contrats intelligents Solidity, les protocoles DeFi et les DApps Web3.</p>
+                        <p>Je spécialise dans le développement blockchain avec 2 ans d'expérience, les contrats intelligents Solidity, les protocoles DeFi et les DApps Web3 performantes.</p>
                     </div>
                     <div class="project-card" style="margin-bottom: 1rem;">
                         <h3>Q: Travaillez-vous en freelance?</h3>
-                        <p>Oui, je suis disponible pour des projets freelance. Contactez-moi sur WhatsApp ou par email pour discuter.</p>
+                        <p>Oui, je suis disponible pour des projets freelance. Contactez-moi sur WhatsApp, email ou LinkedIn pour discuter de votre projet.</p>
                     </div>
                     <div class="project-card" style="margin-bottom: 1rem;">
-                        <h3>Q: Quel est votre expérience?</h3>
-                        <p>Développeur blockchain junior avec plusieurs projets complétés et en cours. Passion pour l'innovation Web3.</p>
+                        <h3>Q: Quelle est votre expérience?</h3>
+                        <p>Développeur blockchain avec 2 ans d'expérience solide. J'ai plusieurs projets complétés et des contributions actives dans l'écosystème Web3.</p>
                     </div>
                     <div class="project-card">
                         <h3>Q: Comment puis-je vous contacter?</h3>
-                        <p>Via WhatsApp (+228 92361187), email ou formulaire de contact. Réponse rapide garantie!</p>
+                        <p>Via WhatsApp (+228 92361187), email (djekourman.alladoum@gmail.com), LinkedIn ou GitHub. Réponse rapide garantie!</p>
                     </div>
                 </div>
             </div>
@@ -868,8 +963,11 @@
                         <a href="https://wa.me/22892361187" class="btn btn-primary" target="_blank">
                             <i class="fab fa-whatsapp"></i> WhatsApp
                         </a>
-                        <a href="mailto:contact@mikealladoum.com" class="btn btn-secondary">
+                        <a href="mailto:djekourman.alladoum@gmail.com" class="btn btn-secondary">
                             <i class="fas fa-envelope"></i> Email
+                        </a>
+                        <a href="https://linkedin.com/in/mike-alladoum" class="btn btn-secondary" target="_blank">
+                            <i class="fab fa-linkedin"></i> LinkedIn
                         </a>
                         <a href="https://github.com/MikeAlladoum" class="btn btn-secondary" target="_blank">
                             <i class="fab fa-github"></i> GitHub
@@ -882,14 +980,31 @@
 
     <!-- FOOTER -->
     <footer>
-        <p>&copy; 2026 DJEKOURMAN ALLADOUM MIKE - Tous droits réservés</p>
-        <p>Web3 Developer | Blockchain Specialist | 📍 Lomé, Togo</p>
+        <p>&copy; 2026 Mike Alladoum - Tous droits réservés</p>
+        <p>Développeur Blockchain | Web3 Engineer | 📍 Lomé, Togo</p>
         <div class="footer-links">
             <a href="https://github.com/MikeAlladoum" target="_blank">GitHub</a>
-            <a href="https://linkedin.com/in/mikealladoum" target="_blank">LinkedIn</a>
+            <a href="https://linkedin.com/in/mike-alladoum" target="_blank">LinkedIn</a>
             <a href="https://twitter.com/mikealladoum" target="_blank">Twitter</a>
+            <a href="mailto:djekourman.alladoum@gmail.com">Email</a>
         </div>
     </footer>
+
+    <!-- CV MODAL -->
+    <div id="cvModal" class="cv-modal" style="display: none;">
+        <div class="cv-modal-content">
+            <button class="cv-modal-close" id="closeCvBtn">&times;</button>
+            <div class="cv-modal-header">
+                <h2>Mon Professionnel</h2>
+                <a href="assets/cv/resume.pdf" class="btn btn-primary" download>
+                    <i class="fas fa-download"></i> Télécharger CV
+                </a>
+            </div>
+            <div id="cvContent" class="cv-content">
+                <!-- CV will be loaded here -->
+            </div>
+        </div>
+    </div>
 
     <script>
         // ============ SCROLL SPY & NAVBAR ============
@@ -965,6 +1080,88 @@
         document.querySelectorAll('.project-card, section').forEach(el => {
             observer.observe(el);
         });
+
+        // ============ CV MODAL ============
+        const cvModal = document.getElementById('cvModal');
+        const viewCvBtn = document.getElementById('viewCvBtn');
+        const closeCvBtn = document.getElementById('closeCvBtn');
+        const cvContent = document.getElementById('cvContent');
+
+        viewCvBtn.addEventListener('click', () => {
+            cvModal.style.display = 'flex';
+            loadCVContent();
+        });
+
+        closeCvBtn.addEventListener('click', () => {
+            cvModal.style.display = 'none';
+        });
+
+        cvModal.addEventListener('click', (e) => {
+            if (e.target === cvModal) {
+                cvModal.style.display = 'none';
+            }
+        });
+
+        function loadCVContent() {
+            const cvHTML = `
+                <h3>👤 Informations Personnelles</h3>
+                <p><strong>Nom:</strong> DJEKOURMAN ALLADOUM MIKE</p>
+                <p><strong>Titre:</strong> Développeur Blockchain | Web3 Engineer</p>
+                <p><strong>Expérience:</strong> 2 ans en développement blockchain</p>
+                <p><strong>Localisation:</strong> Lomé, Togo</p>
+                <p><strong>Email:</strong> djekourman.alladoum@gmail.com</p>
+                <p><strong>WhatsApp:</strong> +228 92361187</p>
+                <p><strong>LinkedIn:</strong> mike-alladoum</p>
+
+                <h3>💼 Expérience Professionnelle</h3>
+                <p><strong>Développeur Blockchain Senior (2024-Présent)</strong></p>
+                <ul>
+                    <li>Développement de contrats intelligents Solidity pour DeFi</li>
+                    <li>Conception et implémentation de protocoles Web3</li>
+                    <li>Audit de sécurité et optimisation des smart contracts</li>
+                    <li>Intégration de portefeuilles numériques et protocoles de liquidation</li>
+                </ul>
+
+                <p><strong>Développeur Web3 (2023-2024)</strong></p>
+                <ul>
+                    <li>Création d'applications décentralisées (DApps)</li>
+                    <li>Intégration avec Solana, Ethereum et autres blockchains</li>
+                    <li>Frontend avec React, Next.js et Web3.js/Ethers.js</li>
+                    <li>Gestion de bases de données blockchain</li>
+                </ul>
+
+                <h3>🎓 Compétences Techniques</h3>
+                <ul>
+                    <li><strong>Blockchain:</strong> Solidity, Web3.js, Ethers.js, Solana, Hardhat, Truffle</li>
+                    <li><strong>Frontend:</strong> React, Next.js, TypeScript, Tailwind CSS, Framer Motion</li>
+                    <li><strong>Backend:</strong> Node.js, Python, PostgreSQL, Express</li>
+                    <li><strong>Tools:</strong> Git, Docker, GitHub, VSCode, Remix IDE</li>
+                    <li><strong>Langues:</strong> Français, Anglais</li>
+                </ul>
+
+                <h3>📚 Éducation & Certifications</h3>
+                <ul>
+                    <li>Certification Développeur Blockchain - Coursera</li>
+                    <li>Certification Solidity Advanced - Udemy</li>
+                    <li>Baccalauréat Informatique</li>
+                </ul>
+
+                <h3>🏆 Projets Majeurs</h3>
+                <ul>
+                    <li><strong>KOYA:</strong> Application Solana DApp avec intégration wallet</li>
+                    <li><strong>Sentinel Liquidation:</strong> Protocole DeFi de liquidation automatisée</li>
+                    <li><strong>WalletConnect DApp:</strong> Application multi-chain avec WalletConnect</li>
+                    <li><strong>DAPP Enchères:</strong> Plateforme décentralisée Ethereum</li>
+                </ul>
+
+                <h3>💬 À Propos</h3>
+                <p>Développeur blockchain passionné avec 2 ans d'expérience solide dans le développement de solutions Web3. 
+                Je spécialise dans la création de contrats intelligents sécurisés, de protocoles DeFi innovants et d'applications 
+                décentralisées performantes. Mon objectif est de contribuer à l'adoption massive de la technologie blockchain 
+                et de créer des solutions qui changent le monde.</p>
+            `;
+            cvContent.innerHTML = cvHTML;
+        }
 
         console.log('✅ Portfolio chargé avec succès!');
     </script>
