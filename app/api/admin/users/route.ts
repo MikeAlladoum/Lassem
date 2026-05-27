@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { jwtVerify } from "jose";
+import { adminEndpointLimiter, getClientIdentifier } from "@/lib/rate-limit";
+import { cacheableQuery, userCache, cacheKeys, cacheInvalidation } from "@/lib/cache";
+import { auditLogger, AuditAction } from "@/lib/audit-logger";
+import { performanceMonitor, measureAsync } from "@/lib/performance-monitor";
 
 const secret = new TextEncoder().encode(
   process.env.JWT_SECRET || "fallback-secret-key-do-not-use-in-production"
@@ -34,10 +38,49 @@ async function verifyAdminAuth(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
+  const startTime = Date.now();
+  const clientId = getClientIdentifier(request, "admin:");
+
   try {
+    // Rate limiting check
+    if (adminEndpointLimiter.isLimited(clientId)) {
+      const remaining = adminEndpointLimiter.getRemaining(clientId);
+      const resetTime = adminEndpointLimiter.getResetTime(clientId);
+
+      await auditLogger.log({
+        action: AuditAction.SECURITY_ALERT,
+        adminId: clientId,
+        adminWallet: "unknown",
+        status: "failure",
+        details: { reason: "Rate limit exceeded" },
+        errorMessage: `Rate limit exceeded. Reset at ${new Date(resetTime).toISOString()}`,
+      });
+
+      return NextResponse.json(
+        {
+          error: "Too many requests",
+          retryAfter: Math.ceil((resetTime - Date.now()) / 1000),
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": Math.ceil((resetTime - Date.now()) / 1000).toString(),
+          },
+        }
+      );
+    }
+
     // Check admin authorization
     const auth = await verifyAdminAuth(request);
     if (!auth.success) {
+      await auditLogger.log({
+        action: AuditAction.AUTH_LOGIN_FAILED,
+        adminId: clientId,
+        adminWallet: "unknown",
+        status: "failure",
+        errorMessage: "Invalid or missing JWT token",
+      });
+
       return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
     }
 
@@ -48,6 +91,33 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get("page") || "1");
     const limit = parseInt(searchParams.get("limit") || "20");
     const skip = (page - 1) * limit;
+
+    // Generate cache key
+    const cacheKey = search
+      ? cacheKeys.userSearch(search, page)
+      : role
+      ? cacheKeys.usersByRole(role, page)
+      : cacheKeys.userList(page, limit);
+
+    // Try to get from cache
+    const cachedData = userCache.get(cacheKey);
+    if (cachedData) {
+      await auditLogger.log({
+        action: AuditAction.USER_VIEWED,
+        adminId: auth.payload.wallet || "unknown",
+        adminWallet: auth.payload.wallet,
+        status: "success",
+        details: { source: "cache", search, role, page },
+      });
+
+      performanceMonitor.recordMetric({
+        name: "GET /api/admin/users",
+        duration: Date.now() - startTime,
+        tags: { cached: "true", search, role },
+      });
+
+      return NextResponse.json(cachedData);
+    }
 
     // Build filter
     const where: any = {};
@@ -63,57 +133,94 @@ export async function GET(request: NextRequest) {
       where.role = role;
     }
 
-    // Fetch total count
-    const totalUsers = await prisma.user.count({ where });
+    // Fetch with performance monitoring
+    const response = await measureAsync(
+      "Fetch users from database",
+      async () => {
+        // Fetch total count
+        const totalUsers = await prisma.user.count({ where });
 
-    // Fetch paginated users
-    const users = await prisma.user.findMany({
-      where,
-      select: {
-        id: true,
-        username: true,
-        email: true,
-        wallet_address: true,
-        role: true,
-        is_active: true,
-        created_at: true,
-        _count: {
+        // Fetch paginated users
+        const users = await prisma.user.findMany({
+          where,
           select: {
-            campaigns_created: true,
-            contributions_made: true,
+            id: true,
+            username: true,
+            email: true,
+            wallet_address: true,
+            role: true,
+            is_active: true,
+            created_at: true,
+            _count: {
+              select: {
+                campaigns_created: true,
+                contributions_made: true,
+              },
+            },
           },
-        },
+          orderBy: { created_at: "desc" },
+          skip,
+          take: limit,
+        });
+
+        return {
+          users: users.map((user) => ({
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            wallet: user.wallet_address,
+            role: user.role,
+            status: user.is_active ? "active" : "inactive",
+            joinedAt: user.created_at.toISOString(),
+            campaignsCreated: user._count.campaigns_created,
+            contributions: user._count.contributions_made,
+          })),
+          pagination: {
+            page,
+            limit,
+            total: totalUsers,
+            pages: Math.ceil(totalUsers / limit),
+          },
+        };
       },
-      orderBy: { created_at: "desc" },
-      skip,
-      take: limit,
+      performanceMonitor,
+      { search, role, cached: "false" }
+    );
+
+    // Cache the response
+    userCache.set(cacheKey, response, { ttl: 5 * 60 * 1000 }); // 5 minutes
+
+    // Log successful request
+    await auditLogger.log({
+      action: AuditAction.USER_VIEWED,
+      adminId: auth.payload.wallet || "unknown",
+      adminWallet: auth.payload.wallet,
+      status: "success",
+      details: { search, role, page, resultCount: response.users.length },
     });
 
-    const formattedUsers = users.map((user) => ({
-      id: user.id,
-      username: user.username,
-      email: user.email,
-      wallet: user.wallet_address,
-      role: user.role,
-      status: user.is_active ? "active" : "inactive",
-      joinedAt: user.created_at.toISOString(),
-      campaignsCreated: user._count.campaigns_created,
-      contributions: user._count.contributions_made,
-    }));
-
-    return NextResponse.json({
-      users: formattedUsers,
-      pagination: {
-        page,
-        limit,
-        total: totalUsers,
-        pages: Math.ceil(totalUsers / limit),
-      },
-    });
+    return NextResponse.json(response);
   } catch (error) {
-    console.error("Error fetching users:", error);
+    const duration = Date.now() - startTime;
+
+    // Log error
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    await auditLogger.log({
+      action: AuditAction.SYSTEM_ERROR,
+      adminId: clientId,
+      adminWallet: "unknown",
+      status: "failure",
+      errorMessage,
+    });
+
+    performanceMonitor.recordMetric({
+      name: "GET /api/admin/users (error)",
+      duration,
+      tags: { error: "true" },
+    });
+
     return NextResponse.json(
-      { error: "Failed to fetch users" },
+      { error: "Internal server error", message: errorMessage },
       { status: 500 }
     );
   }

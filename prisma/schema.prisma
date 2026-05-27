@@ -36,6 +36,10 @@ model User {
   creator_ref          User?                   @relation("UserCreatedBy", fields: [created_by], references: [id])
   created_users        User[]                  @relation("UserCreatedBy")
 
+  @@index([username])
+  @@index([role])
+  @@index([is_active])
+  @@index([created_at])
   @@map("users")
 }
 
@@ -63,6 +67,8 @@ model Category {
 
   campaigns   Campaign[]
 
+  @@index([slug])
+  @@index([is_active])
   @@map("categories")
 }
 
@@ -93,6 +99,11 @@ model Campaign {
   contributions Contribution[]
   transactions  BlockchainTransaction[]
 
+  @@index([creator_id])
+  @@index([status])
+  @@index([created_at])
+  @@index([is_active])
+  @@index([category_id])
   @@map("campaigns")
 }
 
@@ -127,6 +138,9 @@ model Contribution {
   campaign    Campaign @relation(fields: [campaign_id], references: [id])
   contributor User     @relation("ContributorUser", fields: [contributor_id], references: [id])
 
+  @@index([campaign_id])
+  @@index([contributor_id])
+  @@index([status])
   @@map("contributions")
 }
 
@@ -162,6 +176,10 @@ model BlockchainTransaction {
   campaign Campaign? @relation(fields: [campaign_id], references: [id])
   user     User?     @relation("TransactionUser", fields: [user_id], references: [id])
 
+  @@index([status])
+  @@index([campaign_id])
+  @@index([user_id])
+  @@index([created_at])
   @@map("blockchain_transactions")
 }
 
@@ -197,6 +215,9 @@ model Notification {
 
   user User @relation(fields: [user_id], references: [id])
 
+  @@index([user_id])
+  @@index([is_read])
+  @@index([created_at])
   @@map("notifications")
 }
 
