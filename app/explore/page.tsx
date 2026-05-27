@@ -86,27 +86,27 @@ export default function ExplorePage() {
         <section style={{ paddingLeft: '24px', paddingRight: '24px', paddingTop: '48px', paddingBottom: '48px' }}>
           <div className="max-w-7xl mx-auto" style={{ paddingLeft: '16px', paddingRight: '16px' }}>
             {/* Search & Filters */}
-            <div className="mb-12 space-y-4">
+            <div className="mb-12 space-y-5">
               {/* Search */}
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-neutral-500" />
+              <div className="relative group">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-neutral-500 group-focus-within:text-cyan-400 transition-colors" />
                 <input
                   type="text"
                   placeholder="Rechercher un projet..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-12 pr-4 py-3 bg-neutral-900 border border-neutral-800 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-cyan-500 transition-colors"
+                  className="w-full pl-12 pr-4 py-3 bg-neutral-900 border border-neutral-700 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30 transition-all"
                 />
               </div>
 
               {/* Status Filters & Count */}
-              <div className="flex items-center justify-between flex-wrap gap-4">
+              <div className="flex items-center justify-between flex-wrap gap-3">
                 <div className="flex gap-2">
                   <button
                     onClick={() => setStatus("all")}
                     className={`px-4 py-2 rounded-lg font-medium transition-all ${
                       status === "all"
-                        ? "bg-cyan-500 text-neutral-950"
+                        ? "bg-cyan-500 text-neutral-950 shadow-lg shadow-cyan-500/20"
                         : "bg-neutral-800 text-neutral-300 hover:bg-neutral-700"
                     }`}
                   >
@@ -116,7 +116,7 @@ export default function ExplorePage() {
                     onClick={() => setStatus("active")}
                     className={`px-4 py-2 rounded-lg font-medium transition-all ${
                       status === "active"
-                        ? "bg-cyan-500 text-neutral-950"
+                        ? "bg-cyan-500 text-neutral-950 shadow-lg shadow-cyan-500/20"
                         : "bg-neutral-800 text-neutral-300 hover:bg-neutral-700"
                     }`}
                   >
@@ -126,7 +126,7 @@ export default function ExplorePage() {
                     onClick={() => setStatus("completed")}
                     className={`px-4 py-2 rounded-lg font-medium transition-all ${
                       status === "completed"
-                        ? "bg-cyan-500 text-neutral-950"
+                        ? "bg-cyan-500 text-neutral-950 shadow-lg shadow-cyan-500/20"
                         : "bg-neutral-800 text-neutral-300 hover:bg-neutral-700"
                     }`}
                   >
