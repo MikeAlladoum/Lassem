@@ -92,11 +92,20 @@ export function Navbar() {
             gap: '16px'
           }}>
             {wallet.isConnected ? (
-              <div className="flex items-center gap-3 px-4 py-2 bg-neutral-900 border border-neutral-800 rounded-lg">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                <span className="text-sm font-medium text-cyan-400">
-                  {formatAddress(wallet.address || "")}
-                </span>
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3 px-4 py-2 bg-neutral-900 border border-neutral-800 rounded-lg">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  <span className="text-sm font-medium text-cyan-400">
+                    {formatAddress(wallet.address || "")}
+                  </span>
+                </div>
+                <button
+                  onClick={wallet.disconnect}
+                  className="px-4 py-2 bg-neutral-800 hover:bg-red-600/20 hover:border-red-500 text-neutral-300 hover:text-red-400 font-medium rounded-lg border border-neutral-700 transition-all text-sm"
+                  title="Disconnect wallet from DApp"
+                >
+                  Disconnect
+                </button>
               </div>
             ) : (
               <button
