@@ -67,126 +67,63 @@ export default function CampaignsPage() {
       <Navbar />
       <main className="min-h-screen bg-neutral-950 pt-20" style={{ paddingTop: '80px' }}>
         {/* Header */}
-        <section className="px-6 sm:px-8 lg:px-12 xl:px-16 py-16 border-b border-neutral-800">
-          <div className="max-w-7xl mx-auto mb-12">
-            <h1 className="text-5xl font-bold text-white mb-3">Campagnes</h1>
-            <div className="flex items-center gap-3">
-              <div className="w-1 h-8 bg-gradient-to-b from-cyan-300 to-cyan-500 rounded-full"></div>
-              <p className="text-cyan-300 text-lg font-semibold tracking-wide">
-                {filteredCampaigns.length} projet{filteredCampaigns.length !== 1 ? "s" : ""} trouvé{filteredCampaigns.length !== 1 ? "s" : ""}
-              </p>
+        <section className="border-b border-neutral-800" style={{ paddingLeft: '24px', paddingRight: '24px', paddingTop: '40px', paddingBottom: '40px' }}>
+          <div className="max-w-7xl mx-auto" style={{ paddingLeft: '16px', paddingRight: '16px' }}>
+            {/* Title & Action */}
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h1 className="text-4xl font-bold text-white mb-2">Campagnes</h1>
+                <p className="text-neutral-400">Découvrez et soutenez les projets innovants</p>
+              </div>
+              {wallet.isConnected && (
+                <Link href="/campaigns/create">
+                  <Button variant="primary" className="gap-2 px-6 py-3">
+                    <Plus className="w-5 h-5" />
+                    Nouveau projet
+                  </Button>
+                </Link>
+              )}
             </div>
-          </div>
 
-          {wallet.isConnected && (
-            <div className="max-w-7xl mx-auto flex justify-end mb-12">
-              <Link href="/campaigns/create">
-                <Button variant="primary" className="gap-2 px-6 py-3 text-base">
-                  <Plus className="w-5 h-5" />
-                  Lancer un projet
-                </Button>
-              </Link>
-            </div>
-          )}
-
-          {/* Search & Filter Container - Menu Style */}
-          <div className="max-w-7xl mx-auto" style={{ paddingLeft: '16px', paddingRight: '16px',
-            background: 'linear-gradient(135deg, rgba(10, 14, 39, 0.9) 0%, rgba(23, 23, 23, 0.9) 100%)',
-            border: '1px solid rgba(6, 182, 212, 0.2)',
-            borderRadius: '14px',
-            padding: '0',
-            boxShadow: '0 0 50px rgba(6, 182, 212, 0.1), inset 0 1px 0 rgba(34, 211, 238, 0.1)',
-          }}>
-            {/* Menu Bar */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '12px 20px',
-              borderBottom: '1px solid rgba(6, 182, 212, 0.15)',
-              flexWrap: 'wrap',
-              gap: '16px'
-            }}>
-              {/* Left: Search */}
-              <div className="flex items-center rounded-lg px-4 py-2 flex-grow min-w-[250px]" style={{
-                background: 'rgba(31, 41, 55, 0.5)',
-                border: '1px solid rgba(6, 182, 212, 0.25)',
-              }}>
-                <Search className="w-4 h-4 mr-2 flex-shrink-0" style={{ color: '#22d3ee' }} />
+            {/* Search & Filters */}
+            <div className="space-y-4">
+              {/* Search */}
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-neutral-500" />
                 <input
                   type="text"
-                  placeholder="Rechercher..."
+                  placeholder="Rechercher un projet..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="bg-transparent outline-none text-white text-sm w-full placeholder:text-neutral-500"
+                  className="w-full pl-12 pr-4 py-3 bg-neutral-900 border border-neutral-800 rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:border-cyan-500 transition-colors"
                 />
               </div>
 
-              {/* Right: Filter Buttons */}
-              <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                {[
-                  { value: "all", label: "Tous", icon: "🎯" },
-                  { value: "active", label: "En cours", icon: "⚡" },
-                  { value: "completed", label: "Terminés", icon: "✅" },
-                ].map((option) => (
-                  <button
-                    key={option.value}
-                    onClick={() => setFilter(option.value)}
-                    style={{
-                      padding: '8px 16px',
-                      borderRadius: '8px',
-                      fontWeight: '600',
-                      fontSize: '13px',
-                      border: 'none',
-                      cursor: 'pointer',
-                      transition: 'all 0.25s ease',
-                      whiteSpace: 'nowrap',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '4px',
-                      backgroundColor: filter === option.value 
-                        ? 'rgba(6, 182, 212, 0.9)'
-                        : 'rgba(55, 65, 81, 0.3)',
-                      color: filter === option.value ? '#0a0e27' : '#d1d5db',
-                      boxShadow: filter === option.value 
-                        ? '0 0 15px rgba(6, 182, 212, 0.5)'
-                        : 'none',
-                    }}
-                    onMouseEnter={(e) => {
-                      if (filter !== option.value) {
-                        e.currentTarget.style.backgroundColor = 'rgba(55, 65, 81, 0.5)';
-                        e.currentTarget.style.color = '#22d3ee';
-                      }
-                    }}
-                    onMouseLeave={(e) => {
-                      if (filter !== option.value) {
-                        e.currentTarget.style.backgroundColor = 'rgba(55, 65, 81, 0.3)';
-                        e.currentTarget.style.color = '#d1d5db';
-                      }
-                    }}
-                  >
-                    <span>{option.icon}</span>
-                    {option.label}
-                  </button>
-                ))}
+              {/* Filter Buttons & Count */}
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <div className="flex gap-2">
+                  {[
+                    { value: "all", label: "Tous" },
+                    { value: "active", label: "En cours" },
+                    { value: "completed", label: "Terminés" },
+                  ].map((option) => (
+                    <button
+                      key={option.value}
+                      onClick={() => setFilter(option.value)}
+                      className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                        filter === option.value
+                          ? "bg-cyan-500 text-neutral-950"
+                          : "bg-neutral-800 text-neutral-300 hover:bg-neutral-700"
+                      }`}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+                <span className="text-sm text-neutral-400">
+                  {filteredCampaigns.length} résultat{filteredCampaigns.length !== 1 ? "s" : ""}
+                </span>
               </div>
-            </div>
-
-            {/* Info Bar */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '10px 20px',
-              fontSize: '13px',
-              background: 'linear-gradient(90deg, rgba(6, 182, 212, 0.05) 0%, rgba(2, 132, 199, 0.05) 100%)'
-            }}>
-              <span style={{ color: '#22d3ee', fontWeight: '600' }}>
-                📊 {filteredCampaigns.length} projet{filteredCampaigns.length !== 1 ? "s" : ""} trouvé{filteredCampaigns.length !== 1 ? "s" : ""}
-              </span>
-              <span style={{ color: '#9ca3af', fontSize: '12px' }}>
-                Filtre actif: {filter === 'all' ? '🎯 Tous' : filter === 'active' ? '⚡ En cours' : '✅ Terminés'}
-              </span>
             </div>
           </div>
         </section>
