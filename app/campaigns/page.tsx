@@ -65,96 +65,107 @@ export default function CampaignsPage() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen bg-neutral-950 pt-20">
-        {/* Premium Header Section */}
-        <section className="px-4 sm:px-6 lg:px-8 py-12 sm:py-16 border-b border-neutral-900/50">
+      <main className="min-h-screen bg-neutral-950 pt-20" style={{ paddingTop: '80px' }}>
+        {/* Header */}
+        <section className="px-6 sm:px-8 lg:px-12 xl:px-16 py-12 border-b border-neutral-800">
           <div className="max-w-7xl mx-auto">
-            {/* Hero Section */}
-            <div className="mb-12">
-              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-8">
-                <div className="flex-1">
-                  <h1 className="text-5xl sm:text-6xl font-bold text-white tracking-tight mb-3">
-                    Campagnes
-                  </h1>
-                  <p className="text-lg text-neutral-400 leading-relaxed max-w-md">
-                    Découvrez et soutenez les projets innovants qui façonnent l'avenir
-                  </p>
-                </div>
-                {wallet.isConnected && (
-                  <Link href="/campaigns/create" className="flex-shrink-0">
-                    <Button variant="primary" className="gap-2 px-8 py-3 whitespace-nowrap">
-                      <Plus className="w-5 h-5" />
-                      Nouveau projet
-                    </Button>
-                  </Link>
-                )}
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h1 className="text-4xl font-bold text-white">Campagnes</h1>
+                <p className="text-neutral-400 mt-1">Découvrez et soutenez des projets innovants</p>
               </div>
+              {wallet.isConnected && (
+                <Link href="/campaigns/create">
+                  <Button variant="primary" className="gap-2 px-6 py-2.5">
+                    <Plus className="w-4 h-4" />
+                    Nouveau projet
+                  </Button>
+                </Link>
+              )}
             </div>
 
-            {/* Controls Section - Premium Layout */}
-            <div className="space-y-6">
-              {/* Search Bar - Premium Style */}
-              <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/10 to-transparent rounded-xl blur opacity-0 group-focus-within:opacity-100 transition-opacity duration-300" />
-                <div className="relative flex items-center">
-                  <Search className="absolute left-4 w-5 h-5 text-neutral-500 group-focus-within:text-cyan-400 transition-colors" />
-                  <input
-                    type="text"
-                    placeholder="Rechercher un projet..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    className="w-full pl-12 pr-4 py-3.5 bg-neutral-900/60 border border-neutral-800 rounded-xl text-white placeholder-neutral-500 focus:outline-none focus:border-cyan-500 focus:bg-neutral-900 transition-all duration-200 backdrop-blur-sm"
-                  />
-                </div>
+            {/* Search & Filter */}
+            <div className="space-y-4">
+              {/* Search Bar */}
+              <div className="flex items-center rounded-lg px-4 py-3" style={{
+                background: 'rgba(31, 41, 55, 0.5)',
+                border: '1px solid rgba(6, 182, 212, 0.25)',
+              }}>
+                <Search className="w-4 h-4 mr-3 flex-shrink-0" style={{ color: '#22d3ee' }} />
+                <input
+                  type="text"
+                  placeholder="Rechercher un projet..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="bg-transparent outline-none text-white text-sm w-full placeholder:text-neutral-500"
+                />
               </div>
 
-              {/* Filters & Results - Segmented Control Style */}
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-                {/* Segmented Control for Filters */}
-                <div className="inline-flex items-center gap-1 bg-neutral-900/50 p-1 rounded-lg border border-neutral-800">
+              {/* Filter Buttons & Results */}
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
                   {[
-                    { value: "all", label: "Tous", icon: null },
-                    { value: "active", label: "En cours", icon: null },
-                    { value: "completed", label: "Terminés", icon: null },
+                    { value: "all", label: "Tous" },
+                    { value: "active", label: "En cours" },
+                    { value: "completed", label: "Terminés" },
                   ].map((option) => (
                     <button
                       key={option.value}
                       onClick={() => setFilter(option.value)}
-                      className={`px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 ${
-                        filter === option.value
-                          ? "bg-cyan-500 text-neutral-950 shadow-lg shadow-cyan-500/20"
-                          : "text-neutral-400 hover:text-neutral-300"
-                      }`}
+                      style={{
+                        padding: '8px 16px',
+                        borderRadius: '8px',
+                        fontWeight: '500',
+                        fontSize: '13px',
+                        border: 'none',
+                        cursor: 'pointer',
+                        transition: 'all 0.25s ease',
+                        backgroundColor: filter === option.value 
+                          ? 'rgba(6, 182, 212, 0.9)'
+                          : 'rgba(55, 65, 81, 0.3)',
+                        color: filter === option.value ? '#0a0e27' : '#d1d5db',
+                        boxShadow: filter === option.value 
+                          ? '0 0 15px rgba(6, 182, 212, 0.5)'
+                          : 'none',
+                      }}
+                      onMouseEnter={(e) => {
+                        if (filter !== option.value) {
+                          e.currentTarget.style.backgroundColor = 'rgba(55, 65, 81, 0.5)';
+                          e.currentTarget.style.color = '#22d3ee';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (filter !== option.value) {
+                          e.currentTarget.style.backgroundColor = 'rgba(55, 65, 81, 0.3)';
+                          e.currentTarget.style.color = '#d1d5db';
+                        }
+                      }}
                     >
                       {option.label}
                     </button>
                   ))}
                 </div>
-
-                {/* Result Counter - Subtle but Present */}
-                <div className="text-sm text-neutral-400 font-medium">
-                  <span className="text-cyan-400">{filteredCampaigns.length}</span>
-                  {" "}
-                  résultat{filteredCampaigns.length !== 1 ? "s" : ""}
-                </div>
+                <span style={{ color: '#9ca3af', fontSize: '13px' }}>
+                  {filteredCampaigns.length} résultat{filteredCampaigns.length !== 1 ? "s" : ""}
+                </span>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Campaigns Grid Section */}
-        <section className="px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-          <div className="max-w-7xl mx-auto">
+        {/* Campaigns Grid */}
+        <section style={{ paddingLeft: '24px', paddingRight: '24px', paddingTop: '64px', paddingBottom: '96px' }}>
+          <div className="max-w-7xl mx-auto" style={{ paddingLeft: '16px', paddingRight: '16px' }}>
             {loading ? (
-              <div className="flex justify-center py-40">
-                <div className="relative w-12 h-12">
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-cyan-400 rounded-full blur animate-pulse" />
-                  <div className="absolute inset-1 bg-neutral-950 rounded-full" />
-                  <div className="absolute inset-0 border-2 border-transparent border-t-cyan-500 border-r-cyan-400 rounded-full animate-spin" />
-                </div>
+              <div className="flex justify-center py-32">
+                <div className="w-10 h-10 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin" />
               </div>
             ) : filteredCampaigns.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6" style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                gap: '24px'
+              }}>
                 {filteredCampaigns.map((campaign) => {
                   const progress = (campaign.current_amount / campaign.goal_amount) * 100;
                   
