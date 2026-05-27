@@ -189,7 +189,6 @@ async function main() {
         status: "active",
         image_url: "https://images.unsplash.com/photo-1639762681033-6461d5d6ecc9?w=500",
         creator_id: creators[0].id,
-        creator: { connect: { id: creators[0].id } },
         category_id: categories[3].id, // Blockchain
         is_active: true,
         is_visible: true,
@@ -208,7 +207,6 @@ async function main() {
         status: "active",
         image_url: "https://images.unsplash.com/photo-1509391366360-2e0b411dc282?w=500",
         creator_id: creators[1].id,
-        creator: { connect: { id: creators[1].id } },
         category_id: categories[1].id, // Energy
         is_active: true,
         is_visible: true,
@@ -227,7 +225,6 @@ async function main() {
         status: "active",
         image_url: "https://images.unsplash.com/photo-1561757411-d3fee03d3a5f?w=500",
         creator_id: creators[2].id,
-        creator: { connect: { id: creators[2].id } },
         category_id: categories[2].id, // Robotics
         is_active: true,
         is_visible: true,
@@ -246,7 +243,6 @@ async function main() {
         status: "succeeded",
         image_url: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500",
         creator_id: creators[0].id,
-        creator: { connect: { id: creators[0].id } },
         category_id: categories[0].id, // Technology
         is_active: true,
         is_visible: true,
